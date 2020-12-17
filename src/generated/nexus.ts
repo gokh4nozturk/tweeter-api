@@ -235,12 +235,14 @@ export interface NexusGenInputs {
   UserCreateInput: { // input type
     email: string; // String!
     name?: string | null; // String
+    password: string; // String!
     posts?: NexusGenInputs['PostCreateManyWithoutAuthorInput'] | null; // PostCreateManyWithoutAuthorInput
     profile?: NexusGenInputs['ProfileCreateOneWithoutUserInput'] | null; // ProfileCreateOneWithoutUserInput
   }
   UserUpdateInput: { // input type
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
     profile?: NexusGenInputs['ProfileUpdateOneWithoutUserInput'] | null; // ProfileUpdateOneWithoutUserInput
   }

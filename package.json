@@ -11,6 +11,7 @@
     "generate": "npm run generate:prisma && npm run generate:nexus",
     "generate:prisma": "prisma generate",
     "generate:nexus": "ts-node -r dotenv/config --transpile-only ./src/schema.ts",
+    "prisma:migrate": "prisma migrate dev --preview-feature",
     "prisma:studio": "dotenv -- prisma studio --experimental --port 4001",
     "prisma:init": "npm run prisma:migrate:up"
   },
