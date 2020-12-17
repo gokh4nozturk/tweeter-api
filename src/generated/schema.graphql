@@ -2,6 +2,10 @@
 ### Do not make changes to this file directly
 
 
+type AuthenticationType {
+  token: String!
+}
+
 input BoolFieldUpdateOperationsInput {
   set: Boolean
 }
@@ -28,19 +32,10 @@ input DateTimeFilter {
   notIn: [DateTime!]
 }
 
-input IntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntFilter
-  notIn: [Int!]
-}
-
 type Mutation {
   createOneUser(data: UserCreateInput!): User!
+  login(email: String!, password: String!): AuthenticationType
+  register(email: String!, name: String!, password: String!): AuthenticationType
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
 }
 
@@ -58,17 +53,6 @@ input NestedDateTimeFilter {
   lte: DateTime
   not: NestedDateTimeFilter
   notIn: [DateTime!]
-}
-
-input NestedIntFilter {
-  equals: Int
-  gt: Int
-  gte: Int
-  in: [Int!]
-  lt: Int
-  lte: Int
-  not: NestedIntFilter
-  notIn: [Int!]
 }
 
 input NestedStringFilter {
@@ -117,16 +101,17 @@ input PostCreateOrConnectWithoutauthorInput {
 input PostCreateWithoutAuthorInput {
   content: String
   createdAt: DateTime
+  id: String
   published: Boolean
   title: String!
 }
 
 input PostScalarWhereInput {
   AND: [PostScalarWhereInput!]
-  authorId: IntFilter
+  authorId: StringFilter
   content: StringNullableFilter
   createdAt: DateTimeFilter
-  id: IntFilter
+  id: StringFilter
   NOT: [PostScalarWhereInput!]
   OR: [PostScalarWhereInput!]
   published: BoolFilter
@@ -136,6 +121,7 @@ input PostScalarWhereInput {
 input PostUpdateManyMutationInput {
   content: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
   published: BoolFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
 }
@@ -161,6 +147,7 @@ input PostUpdateManyWithWhereWithoutAuthorInput {
 input PostUpdateWithoutAuthorInput {
   content: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
   published: BoolFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
 }
@@ -177,7 +164,8 @@ input PostUpsertWithWhereUniqueWithoutAuthorInput {
 }
 
 input PostWhereUniqueInput {
-  id: Int
+  authorId: String
+  id: String
 }
 
 input ProfileCreateOneWithoutUserInput {
@@ -193,6 +181,7 @@ input ProfileCreateOrConnectWithoutuserInput {
 
 input ProfileCreateWithoutUserInput {
   bio: String
+  id: String
 }
 
 input ProfileUpdateOneWithoutUserInput {
@@ -207,6 +196,7 @@ input ProfileUpdateOneWithoutUserInput {
 
 input ProfileUpdateWithoutUserInput {
   bio: NullableStringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
 }
 
 input ProfileUpsertWithoutUserInput {
@@ -215,11 +205,12 @@ input ProfileUpsertWithoutUserInput {
 }
 
 input ProfileWhereUniqueInput {
-  id: Int
-  userId: Int
+  id: String
+  userId: String
 }
 
 type Query {
+  currentUser: User
   user(where: UserWhereUniqueInput!): User
   users(after: UserWhereUniqueInput, before: UserWhereUniqueInput, first: Int, last: Int): [User!]!
 }
@@ -265,25 +256,30 @@ input StringNullableFilter {
 
 type User {
   email: String!
-  id: Int!
+  id: String!
   name: String
+  password: String!
 }
 
 input UserCreateInput {
   email: String!
+  id: String
   name: String
+  password: String!
   posts: PostCreateManyWithoutAuthorInput
   profile: ProfileCreateOneWithoutUserInput
 }
 
 input UserUpdateInput {
   email: StringFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
+  password: StringFieldUpdateOperationsInput
   posts: PostUpdateManyWithoutAuthorInput
   profile: ProfileUpdateOneWithoutUserInput
 }
 
 input UserWhereUniqueInput {
   email: String
-  id: Int
+  id: String
 }

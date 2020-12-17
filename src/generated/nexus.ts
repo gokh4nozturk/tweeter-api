@@ -40,16 +40,6 @@ export interface NexusGenInputs {
     not?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
   }
-  IntFilter: { // input type
-    equals?: number | null; // Int
-    gt?: number | null; // Int
-    gte?: number | null; // Int
-    in?: number[] | null; // [Int!]
-    lt?: number | null; // Int
-    lte?: number | null; // Int
-    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
-    notIn?: number[] | null; // [Int!]
-  }
   NestedBoolFilter: { // input type
     equals?: boolean | null; // Boolean
     not?: NexusGenInputs['NestedBoolFilter'] | null; // NestedBoolFilter
@@ -63,16 +53,6 @@ export interface NexusGenInputs {
     lte?: NexusGenScalars['DateTime'] | null; // DateTime
     not?: NexusGenInputs['NestedDateTimeFilter'] | null; // NestedDateTimeFilter
     notIn?: NexusGenScalars['DateTime'][] | null; // [DateTime!]
-  }
-  NestedIntFilter: { // input type
-    equals?: number | null; // Int
-    gt?: number | null; // Int
-    gte?: number | null; // Int
-    in?: number[] | null; // [Int!]
-    lt?: number | null; // Int
-    lte?: number | null; // Int
-    not?: NexusGenInputs['NestedIntFilter'] | null; // NestedIntFilter
-    notIn?: number[] | null; // [Int!]
   }
   NestedStringFilter: { // input type
     contains?: string | null; // String
@@ -115,15 +95,16 @@ export interface NexusGenInputs {
   PostCreateWithoutAuthorInput: { // input type
     content?: string | null; // String
     createdAt?: NexusGenScalars['DateTime'] | null; // DateTime
+    id?: string | null; // String
     published?: boolean | null; // Boolean
     title: string; // String!
   }
   PostScalarWhereInput: { // input type
     AND?: NexusGenInputs['PostScalarWhereInput'][] | null; // [PostScalarWhereInput!]
-    authorId?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    authorId?: NexusGenInputs['StringFilter'] | null; // StringFilter
     content?: NexusGenInputs['StringNullableFilter'] | null; // StringNullableFilter
     createdAt?: NexusGenInputs['DateTimeFilter'] | null; // DateTimeFilter
-    id?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['PostScalarWhereInput'][] | null; // [PostScalarWhereInput!]
     OR?: NexusGenInputs['PostScalarWhereInput'][] | null; // [PostScalarWhereInput!]
     published?: NexusGenInputs['BoolFilter'] | null; // BoolFilter
@@ -132,6 +113,7 @@ export interface NexusGenInputs {
   PostUpdateManyMutationInput: { // input type
     content?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     published?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
@@ -158,6 +140,7 @@ export interface NexusGenInputs {
   PostUpdateWithoutAuthorInput: { // input type
     content?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
     createdAt?: NexusGenInputs['DateTimeFieldUpdateOperationsInput'] | null; // DateTimeFieldUpdateOperationsInput
+    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     published?: NexusGenInputs['BoolFieldUpdateOperationsInput'] | null; // BoolFieldUpdateOperationsInput
     title?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
@@ -167,7 +150,8 @@ export interface NexusGenInputs {
     where: NexusGenInputs['PostWhereUniqueInput']; // PostWhereUniqueInput!
   }
   PostWhereUniqueInput: { // input type
-    id?: number | null; // Int
+    authorId?: string | null; // String
+    id?: string | null; // String
   }
   ProfileCreateOneWithoutUserInput: { // input type
     connect?: NexusGenInputs['ProfileWhereUniqueInput'] | null; // ProfileWhereUniqueInput
@@ -180,6 +164,7 @@ export interface NexusGenInputs {
   }
   ProfileCreateWithoutUserInput: { // input type
     bio?: string | null; // String
+    id?: string | null; // String
   }
   ProfileUpdateOneWithoutUserInput: { // input type
     connect?: NexusGenInputs['ProfileWhereUniqueInput'] | null; // ProfileWhereUniqueInput
@@ -192,14 +177,15 @@ export interface NexusGenInputs {
   }
   ProfileUpdateWithoutUserInput: { // input type
     bio?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
   }
   ProfileUpsertWithoutUserInput: { // input type
     create: NexusGenInputs['ProfileCreateWithoutUserInput']; // ProfileCreateWithoutUserInput!
     update: NexusGenInputs['ProfileUpdateWithoutUserInput']; // ProfileUpdateWithoutUserInput!
   }
   ProfileWhereUniqueInput: { // input type
-    id?: number | null; // Int
-    userId?: number | null; // Int
+    id?: string | null; // String
+    userId?: string | null; // String
   }
   StringFieldUpdateOperationsInput: { // input type
     set?: string | null; // String
@@ -234,19 +220,23 @@ export interface NexusGenInputs {
   }
   UserCreateInput: { // input type
     email: string; // String!
+    id?: string | null; // String
     name?: string | null; // String
+    password: string; // String!
     posts?: NexusGenInputs['PostCreateManyWithoutAuthorInput'] | null; // PostCreateManyWithoutAuthorInput
     profile?: NexusGenInputs['ProfileCreateOneWithoutUserInput'] | null; // ProfileCreateOneWithoutUserInput
   }
   UserUpdateInput: { // input type
     email?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
+    id?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     name?: NexusGenInputs['NullableStringFieldUpdateOperationsInput'] | null; // NullableStringFieldUpdateOperationsInput
+    password?: NexusGenInputs['StringFieldUpdateOperationsInput'] | null; // StringFieldUpdateOperationsInput
     posts?: NexusGenInputs['PostUpdateManyWithoutAuthorInput'] | null; // PostUpdateManyWithoutAuthorInput
     profile?: NexusGenInputs['ProfileUpdateOneWithoutUserInput'] | null; // ProfileUpdateOneWithoutUserInput
   }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
-    id?: number | null; // Int
+    id?: string | null; // String
   }
 }
 
@@ -264,6 +254,9 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthenticationType: { // root type
+    token: string; // String!
+  }
   Mutation: {};
   Query: {};
   User: prisma.User;
@@ -280,34 +273,48 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  AuthenticationType: { // field return type
+    token: string; // String!
+  }
   Mutation: { // field return type
     createOneUser: NexusGenRootTypes['User']; // User!
+    login: NexusGenRootTypes['AuthenticationType'] | null; // AuthenticationType
+    register: NexusGenRootTypes['AuthenticationType'] | null; // AuthenticationType
     updateOneUser: NexusGenRootTypes['User'] | null; // User
   }
   Query: { // field return type
+    currentUser: NexusGenRootTypes['User'] | null; // User
     user: NexusGenRootTypes['User'] | null; // User
     users: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
     email: string; // String!
-    id: number; // Int!
+    id: string; // String!
     name: string | null; // String
+    password: string; // String!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthenticationType: { // field return type name
+    token: 'String'
+  }
   Mutation: { // field return type name
     createOneUser: 'User'
+    login: 'AuthenticationType'
+    register: 'AuthenticationType'
     updateOneUser: 'User'
   }
   Query: { // field return type name
+    currentUser: 'User'
     user: 'User'
     users: 'User'
   }
   User: { // field return type name
     email: 'String'
-    id: 'Int'
+    id: 'String'
     name: 'String'
+    password: 'String'
   }
 }
 
@@ -315,6 +322,15 @@ export interface NexusGenArgTypes {
   Mutation: {
     createOneUser: { // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+    }
+    login: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+    register: { // args
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
     }
     updateOneUser: { // args
       data: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
