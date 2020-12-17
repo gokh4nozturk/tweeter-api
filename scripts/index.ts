@@ -7,7 +7,7 @@ async function main() {
     data: {
       name: 'Ozturk',
       email: 'ozturk@prisma.io',
-      password: '12345',
+      password: '12345ee',
       posts: {
         create: { title: 'Hello My World' },
       },
@@ -24,6 +24,8 @@ async function main() {
     },
   });
   console.dir(allUsers, { depth: null });
+
+  process.exit(0);
 }
 
 main();
