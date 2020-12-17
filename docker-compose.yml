@@ -1,0 +1,13 @@
+version: "3"
+services:
+  db:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tweeter
+    ports:
+      - "5433:5432"
+volumes:
+  postgres: ~

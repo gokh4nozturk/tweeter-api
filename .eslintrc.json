@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": ["airbnb-typescript/base", "prettier", "plugin:jest/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint", "jest"],
+  "rules": {
+    "no-console": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/indent": "off",
+    "no-param-reassign": [2, { "props": false }],
+    "class-methods-use-this": "warn"
+  }
+}
